@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from . forms import *
 from django.contrib import messages
+from django.views.generic.detail import DetailView
 
 # Create your views here.
 def home(request):
@@ -21,3 +22,21 @@ def notes(request):
     context = {'notes':notes, 'form':form}
     return render(request, 'dashboard/notes.html', context)
 
+def delete_note(request,pk=None):
+    Notes.objects.get(id=pk).delete()
+    return redirect("notes")
+
+class NotesDetailView(DetailView):
+    model = Notes
+
+def homework(request):
+    homework = Homework.objects.filter(user=request.user)
+    if len(homework) == 0:
+        homework_done = True
+    else:
+        homework_done = False
+    
+    context = {'homeworks': homework, 'homework_done': homework_done}
+    return render(request, 'dashboard/homework.html', context)
+    
+    

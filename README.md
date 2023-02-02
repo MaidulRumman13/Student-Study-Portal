@@ -1,2 +1,3 @@
-# Student-Study-Portal I'm Working on it.
+# Student-Study-Portal 
+# Install requirment.txt first
 Thanks
